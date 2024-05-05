@@ -42,16 +42,28 @@ function outputResults() {
             headerRow.appendChild(shopHeader);
 
             for (let i = 0; i < data.length; i++) {
+
                 const price = data[i].price;
                 const name = data[i].name;
                 let row = table.insertRow();
+
                 let imageCell = row.insertCell(0);
                 let image = document.createElement('img');
                 image.classList.add('ext-img');
                 image.src = data[i].img;
-                imageCell.appendChild(image);
+                let imageLink = document.createElement('a');
+                imageLink.href = data[i].link;
+                imageLink.target = "_blank"; // открывать ссылку в новой вкладке
+
+                imageLink.appendChild(image);
+                imageCell.appendChild(imageLink);
                 let nameCell = row.insertCell(1);
-                nameCell.textContent = name;
+                let nameLink = document.createElement('a');
+                nameLink.href = data[i].link;
+                nameLink.textContent = name;
+                nameLink.target = "_blank"; // открывать ссылку в новой вкладке
+
+                nameCell.appendChild(nameLink);
                 let priceCell = row.insertCell(2);
                 priceCell.textContent = price;
                 let shopCell = row.insertCell(3);

@@ -15,10 +15,11 @@ def receive_data():
     time.sleep(8)
     dt = request.get_json()
     print(dt)
-    data=[{'price':'Текст из расширения', 'name':dt, 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru'},
-     {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар1', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilinks.ru'},
-    {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар2', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru'},
-    {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар3', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru'}]
+    data=[{'price':'Текст из расширения', 'name':dt, 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru'
+    , 'link' : 'https://www.google.com/'},
+     {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар1', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilinks.ru', 'link' : 'https://vk.com/kukazyamra'},
+    {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар2', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru', 'link' : 'google.com'},
+    {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар3', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru','link' : 'google.com'}]
 
     return jsonify(data), 201
 

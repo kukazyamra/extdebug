@@ -38,6 +38,7 @@
 const domen = window.location.host
 const port = chrome.runtime.connect({name: 'content-script'});
 console.log('I AM CONTENT SCRIPT');
+console.log(domen);
 // Функция для обработки изменения URL
 function handleUrlChange() {
     setTimeout(findName, 2000);
@@ -91,6 +92,37 @@ function findName(){
             port.postMessage({selectionText: header});
         }
     }
+    if (domen == 'www.citilink.ru') {
+        const header = document.querySelector('[data-meta-name="ProductHeaderLayout__title"]').textContent;
+        console.log('header'+header);
+
+        if (header != '') {
+            port.postMessage({selectionText:header});
+        }
+    }
+    if (domen=='www.dns-shop.ru'){
+        const header = document.querySelector('.product-card-top__title').textContent;
+
+        if (header != '') {
+            port.postMessage({selectionText:header});
+        }
+    }
+    if (domen=='www.mvideo.ru'){
+        const header = document.querySelector('h1.title').textContent;
+
+        if (header != '') {
+            port.postMessage({selectionText:header});
+        }
+    }
+
+    if (domen=='www.eldorado.ru'){
+        const header = document.querySelector('[data-dy="heading"]').textContent;
+
+        if (header != '') {
+            port.postMessage({selectionText:header});
+        }
+    }
+
 
 }
 setTimeout(findName, 2000);
