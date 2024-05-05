@@ -56,7 +56,7 @@ th {
 .table tbody tr:last-child td:last-child {
   border-radius: 0 0 20px 0;
 }
-img{
+.ext-img{
   max-width: 45px;
   max-height: 45px;
 }

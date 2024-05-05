@@ -47,6 +47,7 @@ function outputResults() {
                 let row = table.insertRow();
                 let imageCell = row.insertCell(0);
                 let image = document.createElement('img');
+                image.classList.add('ext-img');
                 image.src = data[i].img;
                 imageCell.appendChild(image);
                 let nameCell = row.insertCell(1);
