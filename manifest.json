@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Hello Extensions of the world!",
+  "version": "1.0",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs",
+    "storage",
+    "webNavigation",
+    "webRequest",
+    "cookies",
+    "contextMenus",
+    "declarativeContent",
+    "clipboardWrite",
+    "clipboardRead",
+    "unlimitedStorage",
+    "notifications",
+    "downloads",
+    "management",
+    "identity",
+    "offscreen"
+],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "hello_extensions.png"
+  },
+  "content_scripts":[
+    {
+      "matches": [
+        "<all_urls>"
+    ],
+      "js": ["content.js", "jquery.js", "popup.js"],
+      "css": ["css.css"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+    }
+}
+
+
