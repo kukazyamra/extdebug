@@ -15,13 +15,16 @@ def receive_data():
     time.sleep(8)
     dt = request.get_json()
     print(dt)
-    data=[{'price':'Текст из расширения', 'name':dt, 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru'
-    , 'link' : 'https://www.google.com/'},
-     {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар1', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilinks.ru', 'link' : 'https://vk.com/kukazyamra'},
-    {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар2', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru', 'link' : 'google.com'},
-    {'price':f'{int(random.random()*1000)} руб.', 'name':'Товар3', 'img':'https://img.mvideo.ru/Big/400255619bb.jpg','shop':'citilink.ru','link' : 'google.com'}]
+    data=[
+     {'price': 21990, 'link': 'google.com', 'shop': 'onlinetrade.ru', 'name': 'Смартфон Xiaomi Redmi Note 13 8/256GB Черный', 'img': 'https://static.onlinetrade.ru/img/items/b/smartfon_xiaomi_redmi_note_13_8_256gb_chernyy_2928421_1.JPG'},
+     {'price': 22999, 'link': 'google.com', 'shop': 'dns-shop.ru', 'name': '6.67" Смартфон Xiaomi Redmi Note 13 256 ГБ черный', 'img': 'https://c.dns-shop.ru/thumb/st1/fit/0/0/3df336561598fe5d6d29524e84d57a5c/c535077fe172ce14b87dc57b1c9a0d3873cf76bf608832dfa58f4f928759fe0c.jpg.webp'},
+     {'price': 20890, 'link': 'e2e4online.ru', 'shop': 'e2e4online.ru', 'name': 'Смартфон Xiaomi Redmi Note 13 8Gb/256Gb Android черный (52927/MZB0FYRRU)', 'img': 'https://s3.e2e4.ru/imgproxy/3374646'}
+    ]
 
-    return jsonify(data), 201
+
+    sorted_data = sorted(data, key=lambda x: x['price'])
+
+    return jsonify(sorted_data), 201
 
 
 if __name__=='__main__':
