@@ -81,6 +81,8 @@ function sendDataToServer(data, callback) {
                 })
                 .catch(error => {
                     // Обработка ошибки
+                    chrome.storage.local.set({'status': ''});
+
                     console.error('Ошибка при отправке данных на сервер:', error);
                     callback(null);
                 });
