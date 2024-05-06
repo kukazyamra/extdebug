@@ -93,7 +93,7 @@ chrome.storage.local.get('status', function (status){
         items.innerHTML = '<p>Название товара получено. Ищем предложения...</p>'
     } else if (status.status == 'finished'){
         chrome.storage.local.get('finishTime', function(result){
-            if (Date.now()-result.finishTime < 30000){
+            if (Date.now()-result.finishTime < 300000){
                 outputResults();
             } else {
                 chrome.storage.local.set({'myData': ''});
