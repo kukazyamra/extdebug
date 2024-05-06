@@ -41,7 +41,7 @@ console.log('I AM CONTENT SCRIPT');
 console.log(domen);
 // Функция для обработки изменения URL
 function handleUrlChange() {
-    if ((domen=='www.onlinetrade.ru')||domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')){
+    if ((domen=='www.rbt.ru')||(domen=='www.onlinetrade.ru')||domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')){
         chrome.runtime.sendMessage({message: "timeout"});
         chrome.storage.local.set({'status': 'searching'});
     }
@@ -58,37 +58,37 @@ handleUrlChange();
 
 
 function findName(){
-    if (domen == 'street-beat.ru') {
-        const header = document.querySelector('.product-specs__title').textContent
-        if (header != '') {
-            port.postMessage({selectionText: header});
-
-        }
-    }
+    // if (domen == 'street-beat.ru') {
+    //     const header = document.querySelector('.product-specs__title').textContent
+    //     if (header != '') {
+    //         port.postMessage({selectionText: header});
+    //
+    //     }
+    // }
 
 // if (domen=='sportmaster.ru') {
 //   const header=document.querySelector('h1[data-selenium="product-name"]').textContent;
 //     port.postMessage({ selectionText: header });
 // }
-    if (domen == 'sneakerhead.ru') {
-        const header = document.querySelector('.product__title').textContent
-        if (header != '') {
-            port.postMessage({selectionText: header});
-        }
-    }
+//     if (domen == 'sneakerhead.ru') {
+//         const header = document.querySelector('.product__title').textContent
+//         if (header != '') {
+//             port.postMessage({selectionText: header});
+//         }
+//     }
 
-    if (domen == 'superstep.ru') {
-        const header = document.querySelector('.detail__info-title__wrapper')
-        if (header != '') {
-            const zagElement = header.querySelector('h1.zag');
-            if (zagElement) {
-                const title = zagElement.querySelector('.hidden');
-                brand = title.querySelector('a').textContent;
-                name = title.querySelector('font').textContent;
-                port.postMessage({selectionText: brand+' '+name});
-            }
-        }
-    }
+    // if (domen == 'superstep.ru') {
+    //     const header = document.querySelector('.detail__info-title__wrapper')
+    //     if (header != '') {
+    //         const zagElement = header.querySelector('h1.zag');
+    //         if (zagElement) {
+    //             const title = zagElement.querySelector('.hidden');
+    //             brand = title.querySelector('a').textContent;
+    //             name = title.querySelector('font').textContent;
+    //             port.postMessage({selectionText: brand+' '+name});
+    //         }
+    //     }
+    // }
 
     if (domen.includes('e2e4online.ru')) {
         const header = document.querySelector('.offer-card-new__title').textContent
@@ -145,7 +145,7 @@ function findName(){
 
 
 }
-if (domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')||(domen=='www.onlinetrade.ru')){
+if ((domen=='www.rbt.ru')||domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')||(domen=='www.onlinetrade.ru')){
     chrome.runtime.sendMessage({message: "timeout"});
     chrome.storage.local.set({'status': 'searching'});
 }
