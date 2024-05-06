@@ -82,12 +82,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.message =='new data'){
         console.log("Message from background.js:", request.message);
         outputResults();
+    } else if (request.message='timeout'){
+        items.innerHTML = '<p>Название товара получено. Ищем предложения...</p>'
+        console.log('timeout');
     }
 });
 
 chrome.storage.local.get('status', function (status){
     if (status.status == 'searching'){
-        items.innerHTML = '<p>Ищем предложения...</p>'
+        items.innerHTML = '<p>Название товара получено. Ищем предложения...</p>'
     } else if (status.status == 'finished'){
         chrome.storage.local.get('finishTime', function(result){
             if (Date.now()-result.finishTime < 30000){

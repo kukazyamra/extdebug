@@ -41,7 +41,11 @@ console.log('I AM CONTENT SCRIPT');
 console.log(domen);
 // Функция для обработки изменения URL
 function handleUrlChange() {
-    setTimeout(findName, 2000);
+    if ((domen=='www.onlinetrade.ru')||domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')){
+        chrome.runtime.sendMessage({message: "timeout"});
+        chrome.storage.local.set({'status': 'searching'});
+    }
+    setTimeout(findName, 1000);
 }
 
 // Добавляем обработчик события на изменение URL
@@ -122,10 +126,32 @@ function findName(){
             port.postMessage({selectionText:header});
         }
     }
+    if (domen=='www.onlinetrade.ru'){
+        const good = document.querySelector('.productPage__card');
+        if (good!=null){
+            const header=good.querySelector('h1').textContent;
+            if (header != '') {
+                port.postMessage({selectionText:header});
+            }
+        }
+    }
+    if (domen=='www.rbt.ru'){
+        const header = document.querySelector('.page-item__title-h1').textContent;
+        if (header != '') {
+            port.postMessage({selectionText:header});
+        }
+    }
+
 
 
 }
-setTimeout(findName, 2000);
+if (domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')||(domen=='www.onlinetrade.ru')){
+    chrome.runtime.sendMessage({message: "timeout"});
+    chrome.storage.local.set({'status': 'searching'});
+}
+
+
+setTimeout(findName, 1000);
 
 
 

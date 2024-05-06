@@ -68,6 +68,8 @@ function sendDataToServer(data, callback) {
     chrome.storage.local.get('popupOpened', function (result) {
         if (Date.now() - result.popupOpened < 30000) {
             chrome.storage.local.set({'status': 'searching'});
+            chrome.runtime.sendMessage({message: "timeout"});
+
 
             fetch('http://127.0.0.1:5000/receive_data', requestOptions)
                 .then(response => response.json())
