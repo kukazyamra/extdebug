@@ -36,16 +36,14 @@
 // при отпускании мыши он отправляет все в бек
 
 const domen = window.location.host
-const port = chrome.runtime.connect({name: 'content-script'});
+// const port = chrome.runtime.connect({name: 'content-script'});
 console.log('I AM CONTENT SCRIPT');
 console.log(domen);
 // Функция для обработки изменения URL
 function handleUrlChange() {
     if ((domen=='www.rbt.ru')||(domen=='www.onlinetrade.ru')||domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')){
-        chrome.runtime.sendMessage({message: "timeout"});
-        chrome.storage.local.set({'status': 'searching'});
+        setTimeout(findName, 1000);
     }
-    setTimeout(findName, 1000);
 }
 
 // Добавляем обработчик события на изменение URL
@@ -54,7 +52,6 @@ function handleUrlChange() {
 // window.addEventListener('locationchange', handleUrlChange);
 window.navigation.addEventListener("navigate", handleUrlChange);
 // Вызываем функцию handleUrlChange() сразу после загрузки страницы, чтобы получить начальный URL
-handleUrlChange();
 
 
 function findName(){
@@ -91,54 +88,59 @@ function findName(){
     // }
 
     if (domen.includes('e2e4online.ru')) {
-        const header = document.querySelector('.offer-card-new__title').textContent
-        if (header != '') {
-            port.postMessage({selectionText: header});
+        const header = document.querySelector('.offer-card-new__title')
+        if (header) {
+            text=header.textContent;
+            chrome.storage.local.set({'latestName': text});
         }
     }
     if (domen == 'www.citilink.ru') {
-        const header = document.querySelector('[data-meta-name="ProductHeaderLayout__title"]').textContent;
-        console.log('header'+header);
-
-        if (header != '') {
-            port.postMessage({selectionText:header});
+        const header = document.querySelector('[data-meta-name="ProductHeaderLayout__title"]');
+        if (header) {
+            text=header.textContent;
+            chrome.storage.local.set({'latestName': text});
         }
     }
     if (domen=='www.dns-shop.ru'){
-        const header = document.querySelector('.product-card-top__title').textContent;
+        const header = document.querySelector('.product-card-top__title');
 
-        if (header != '') {
-            port.postMessage({selectionText:header});
+        if (header) {
+            text=header.textContent;
+            chrome.storage.local.set({'latestName': text});
         }
     }
     if (domen=='www.mvideo.ru'){
-        const header = document.querySelector('h1.title').textContent;
+        const header = document.querySelector('h1.title');
 
-        if (header != '') {
-            port.postMessage({selectionText:header});
+        if (header) {
+            text=header.textContent;
+            chrome.storage.local.set({'latestName': text});
         }
     }
 
     if (domen=='www.eldorado.ru'){
-        const header = document.querySelector('[data-dy="heading"]').textContent;
+        const header = document.querySelector('[data-dy="heading"]');
 
-        if (header != '') {
-            port.postMessage({selectionText:header});
+        if (header) {
+            text=header.textContent;
+            chrome.storage.local.set({'latestName': text});
         }
     }
     if (domen=='www.onlinetrade.ru'){
         const good = document.querySelector('.productPage__card');
         if (good!=null){
-            const header=good.querySelector('h1').textContent;
-            if (header != '') {
-                port.postMessage({selectionText:header});
+            const header=good.querySelector('h1');
+            if (header) {
+                text=header.textContent;
+                chrome.storage.local.set({'latestName': text});
             }
         }
     }
     if (domen=='www.rbt.ru'){
-        const header = document.querySelector('.page-item__title-h1').textContent;
-        if (header != '') {
-            port.postMessage({selectionText:header});
+        const header = document.querySelector('.page-item__title-h1');
+        if (header) {
+            text=header.textContent;
+            chrome.storage.local.set({'latestName': text});
         }
     }
 
@@ -146,12 +148,11 @@ function findName(){
 
 }
 if ((domen=='www.rbt.ru')||domen.includes('e2e4online.ru')||(domen == 'www.citilink.ru')||(domen=='www.dns-shop.ru')||(domen=='www.mvideo.ru')||(domen=='www.eldorado.ru')||(domen=='www.onlinetrade.ru')){
-    chrome.runtime.sendMessage({message: "timeout"});
-    chrome.storage.local.set({'status': 'searching'});
+    findName();
 }
 
 
-setTimeout(findName, 1000);
+
 
 
 
@@ -173,7 +174,7 @@ document.addEventListener('mouseup', function () {
 
     if (selectedText.trim() !== '') {
         // Отправляем выделенный текст в background script
-        port.postMessage({selectionText: selectedText});
+        chrome.storage.local.set({'latestName': selectedText});
     }
 });
 

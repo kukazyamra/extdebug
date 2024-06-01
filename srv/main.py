@@ -12,13 +12,15 @@ def home():
 
 @app.route('/receive_data', methods=["POST"])
 def receive_data():
-    time.sleep(8)
+    time.sleep(4)
     dt = request.get_json()
     print(dt)
     data=[
+        {'price': 123, 'link': 'fake', 'shop': 'fake', 'name': f'{dt}', 'img': 'https://static.onlinetrade.ru/img/items/b/smartfon_xiaomi_redmi_note_13_8_256gb_chernyy_2928421_1.JPG'},
+        
      {'price': 21990, 'link': 'google.com', 'shop': 'onlinetrade.ru', 'name': 'Смартфон Xiaomi Redmi Note 13 8/256GB Черный', 'img': 'https://static.onlinetrade.ru/img/items/b/smartfon_xiaomi_redmi_note_13_8_256gb_chernyy_2928421_1.JPG'},
      {'price': 22999, 'link': 'google.com', 'shop': 'dns-shop.ru', 'name': '6.67" Смартфон Xiaomi Redmi Note 13 256 ГБ черный', 'img': 'https://c.dns-shop.ru/thumb/st1/fit/0/0/3df336561598fe5d6d29524e84d57a5c/c535077fe172ce14b87dc57b1c9a0d3873cf76bf608832dfa58f4f928759fe0c.jpg.webp'},
-     {'price': 20890, 'link': 'e2e4online.ru', 'shop': 'e2e4online.ru', 'name': 'Смартфон Xiaomi Redmi Note 13 8Gb/256Gb Android черный (52927/MZB0FYRRU)', 'img': 'https://s3.e2e4.ru/imgproxy/3374646'}
+     {'price': 208902, 'link': 'e2e4online.ru', 'shop': 'e2e4online.ru', 'name': 'Смартфон Xiaomi Redmi Note 13 8Gb/256Gb Android черный (52927/MZB0FYRRU)', 'img': 'https://s3.e2e4.ru/imgproxy/3374646'}
     ]
 
 

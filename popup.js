@@ -15,8 +15,14 @@
 //   }
 // });
 // Прослушиваем сообщения от background.js
-chrome.storage.local.set({'popupOpened': Date.now()});
-
+latest=document.getElementById('latest');
+chrome.storage.local.get('latestName', function (name){
+    if (name && name.latestName){
+        latest.textContent=`Последнее полученное название: ${name.latestName}`;
+    } else{
+        latest.textContent='net'+Date.now;
+    }
+})
 items=document.getElementById('items')
 function outputResults() {
     chrome.storage.local.get('myData', function(dataa) {
@@ -35,7 +41,7 @@ function outputResults() {
             nameHeader.textContent = 'Название';
             headerRow.appendChild(nameHeader);
             let priceHeader = document.createElement('th');
-            priceHeader.textContent = 'Цена';
+            priceHeader.textContent = 'Цена (руб.)';
             headerRow.appendChild(priceHeader);
             let shopHeader = document.createElement('th');
             shopHeader.textContent = 'Магазин';
@@ -83,14 +89,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log("Message from background.js:", request.message);
         outputResults();
     } else if (request.message='timeout'){
-        items.innerHTML = '<p>Название товара получено. Ищем предложения...</p>'
+        items.innerHTML = '<p>Ищем предложения...</p>'
         console.log('timeout');
     }
 });
 
 chrome.storage.local.get('status', function (status){
     if (status.status == 'searching'){
-        items.innerHTML = '<p>Название товара получено. Ищем предложения...</p>'
+        items.innerHTML = '<p>Ищем предложения...</p>'
     } else if (status.status == 'finished'){
         chrome.storage.local.get('finishTime', function(result){
             if (Date.now()-result.finishTime < 300000){
@@ -102,6 +108,28 @@ chrome.storage.local.get('status', function (status){
     }
 })
 
+function startSearch() {
+    chrome.storage.local.get('latestName', function (name){
+        if (name && name.latestName){
+            console.log('start search');
+            chrome.runtime.sendMessage({message: "tipa start search",name:name.latestName});
+        } else{
+            test.textContent='net'+Date.now;
+        }
+    })
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // Ваш скрипт Popup.js
+    // Например:
+    // code...
+    searchButton = document.getElementById('search');
+    searchButton.addEventListener('click',startSearch)
+  });
+  
+
+
+
+chrome.storage.local.set({'popupOpened': Date.now()});
 
 
 // chrome.storage.local.get('myData', function(result) {

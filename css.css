@@ -3,7 +3,10 @@
   z-index: 9999;
   cursor: grab;
 }
-
+#search{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .draggable:active {
   cursor: grabbing;
 }
