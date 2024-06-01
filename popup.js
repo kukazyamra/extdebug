@@ -19,8 +19,6 @@ latest=document.getElementById('latest');
 chrome.storage.local.get('latestName', function (name){
     if (name && name.latestName){
         latest.textContent=`Последнее полученное название: ${name.latestName}`;
-    } else{
-        latest.textContent='net'+Date.now;
     }
 })
 items=document.getElementById('items')
