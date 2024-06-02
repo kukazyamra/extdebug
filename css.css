@@ -3,6 +3,9 @@
   z-index: 9999;
   cursor: grab;
 }
+#testsize{
+  width:250px;
+}
 #search{
   margin-top: 10px;
   margin-bottom: 10px;

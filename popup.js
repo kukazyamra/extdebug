@@ -15,12 +15,7 @@
 //   }
 // });
 // Прослушиваем сообщения от background.js
-latest=document.getElementById('latest');
-chrome.storage.local.get('latestName', function (name){
-    if (name && name.latestName){
-        latest.textContent=`Последнее полученное название: ${name.latestName}`;
-    }
-})
+
 items=document.getElementById('items')
 function outputResults() {
     chrome.storage.local.get('myData', function(dataa) {
@@ -106,17 +101,44 @@ chrome.storage.local.get('status', function (status){
     }
 })
 
-function startSearch() {
-    chrome.storage.local.get('latestName', function (name){
-        if (name && name.latestName){
-            console.log('start search');
-            chrome.runtime.sendMessage({message: "tipa start search",name:name.latestName});
-        } else{
-            test.textContent='net'+Date.now;
-        }
-    })
-}
+
 document.addEventListener('DOMContentLoaded', function() {
+    function startSearch() {
+                let x  = document.querySelector('#testsize');
+                chrome.runtime.sendMessage({message: "tipa start search",name:x.value});
+    }
+    let textarea = document.querySelector('#testsize');
+    textarea.addEventListener('keydown', autosize);
+    textarea.addEventListener('input',autosize);
+    latest=document.getElementById('latest');
+    chrome.storage.local.get('latestName', function (name){
+    if (name && name.latestName){
+        latest.textContent=`Последнее полученное название:`;
+        textarea.value=`${name.latestName}`;
+        autosize2(textarea);
+    }
+})
+function autosize2(el) {
+    setTimeout(function(){
+      el.style.cssText = 'min-height:37px; height: 37px;';
+      // for box-sizing other than "content-box" use:
+      // el.style.cssText = '-moz-box-sizing:content-box';
+      el.style.cssText = 'height:' + el.scrollHeight + 'px';
+      console.log('ya sdelal cheto');
+    }, 0);
+  }
+  
+             
+function autosize(){
+  var el = this;
+  setTimeout(function(){
+    el.style.cssText = 'min-height:37px; height: 37px;';
+    // for box-sizing other than "content-box" use:
+    // el.style.cssText = '-moz-box-sizing:content-box';
+    el.style.cssText = 'height:' + el.scrollHeight + 'px';
+    console.log('ya sdelal cheto')
+  },0);
+}
     // Ваш скрипт Popup.js
     // Например:
     // code...
