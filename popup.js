@@ -41,9 +41,16 @@ function outputResults() {
             headerRow.appendChild(shopHeader);
 
             for (let i = 0; i < data.length; i++) {
-
+                let name=document.querySelector('#testsize').value;
                 const price = data[i].price;
-                const name = data[i].name;
+                if (data[i].name!=''){
+                    name = data[i].name;
+                } else{
+                    chrome.storage.local.get('lastRequest', function(lastr){
+                        name = lastr['lastRequest'];
+                    })
+                }
+                
                 let row = table.insertRow();
 
                 let imageCell = row.insertCell(0);

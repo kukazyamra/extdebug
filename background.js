@@ -18,8 +18,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log("poluchil infu o start search");
         console.log(request.name);
         sendDataToServer(request.name, function (response) {
+            for (let i =0; i<response.length;i++){
+                if (response[i].name==''){
+                    response[i].name=request.name;
+                }
+            }
             chrome.runtime.sendMessage({message: "new data"});
             chrome.storage.local.set({'myData': response})
+            chrome.storage.local.set({'lastRequest':request.name})
+
             chrome.storage.local.set({'finishTime': Date.now()})
         });
     } 
